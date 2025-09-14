@@ -1,0 +1,39 @@
+/* GENERAL */
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif !important;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+p {
+  color: rgb(85, 85, 85);
+}
+
+/* TRANSITION */
+
+a,
+.btn {
+  transition: all 300ms ease;
+}
+
+/* navbar */
+
+nav, .nav-links{
+display: flex;
+}
+
+nav{
+  justify-content: space-around;
+  align-items: center;
+  height: 17vh;
+}
