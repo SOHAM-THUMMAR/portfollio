@@ -382,3 +382,58 @@ article .icon{
 }
 
 /* contact section */
+
+
+#contact{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 70vh;
+}
+
+.contact-info-upper-container{
+  display: inline-flex;        /* shrink to fit content */
+  justify-content: center;     /* center items inside */
+  align-items: center;         /* vertically center */
+  border-radius: 2rem;
+  border: 0.1rem solid rgb(163, 163, 163);
+  background: rgb(250, 250, 250);
+  padding: 0.8rem 1.5rem;      /* spacing inside */
+  margin: 2rem auto;           /* centers the whole box */
+  width: fit-content;          /* makes the box size auto-fit the content */
+
+}
+
+.contact-info-container {
+  display: flex;
+  align-items: center;   /* <-- this ensures icon and text line up */
+  gap: 0.5rem;
+  margin: 1rem;
+}
+
+
+.contact-info-container .icon{
+  cursor: default;
+}
+
+.contact-info-container p{
+  font-size: larger;
+}
+
+.email-icon{
+  height: 2.5rem;
+}
+
+/* footer */
+
+
+footer{
+
+  height: 26vh;
+  margin: 0 1rem;
+
+}
+footer p{
+  text-align: center;
+  margin-bottom: 1rem;
+}
