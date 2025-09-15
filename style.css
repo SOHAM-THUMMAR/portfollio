@@ -433,7 +433,33 @@ footer{
   margin: 0 1rem;
 
 }
-footer p{
+
+footer p {
+  display: inline;
+  margin: 0 1rem;
   text-align: center;
-  margin-bottom: 1rem;
 }
+
+footer {
+  height: 26vh;
+  margin: 0 1rem;
+}
+
+footer ul {
+  list-style: none;          /* remove bullets */
+  padding: 0;
+  margin: 0;
+  display: flex;             /* horizontal layout */
+  justify-content: center;   /* center items */
+  gap: 1.5rem;               /* space between items */
+}
+
+footer li {
+  display: inline;           /* optional, flex already handles */
+}
+
+footer a, footer p {
+  text-decoration: none;
+  color: inherit;
+}
+
