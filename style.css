@@ -355,3 +355,30 @@ article .icon{
 /* project section */
 
 
+#project{
+  position: relative;
+}
+
+.color-container{
+  border-color: rgb(163,163,163);
+  background: rgb(250,250,250);
+}
+
+.project-img{
+  width: 90%;
+  border-radius: 2rem;
+  height: 90%;
+}
+
+.project-title{
+  margin: 1rem ;
+  color: black;
+
+}
+
+.project-btn{
+  color: black;
+  border-color: rgb(163,163,163);
+}
+
+/* contact section */
