@@ -33,7 +33,7 @@ body {
 
 .terminal-window {
   width: 400px;
-  height: 200px;
+  height: 150px;
   background-color: #1e1e1e;
   border-radius: 8px;
   overflow: hidden;
