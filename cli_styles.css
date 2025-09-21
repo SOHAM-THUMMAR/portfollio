@@ -1,0 +1,111 @@
+body {
+  background-color: #2b2b2b;
+  color: #f0f0f0;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.terminal-window {
+  width: 900px;
+  height: 700px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-header {
+  background-color: #3b3b3b;
+  padding: 8px;
+  display: flex;
+}
+
+.button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.red { background-color: #ff5f57; }
+.yellow { background-color: #ffbd2e; }
+.green { background-color: #28ca42; }
+
+.ascii-art {
+  background-color: #1e1e1e;
+  /* padding: 13px; */
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre;
+}
+
+.ascii-art pre {
+    color: rgb(203, 189, 162);
+    font-size: 15px;
+    margin: 0; /* Remove extra margin */
+}
+
+.terminal-body {
+  padding: 16px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.command-line {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.command-line span {
+  color: #738b6f;
+  margin-right: 5px;
+}
+
+#userInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  font-family: monospace;
+  font-size: 16px;
+  width: 100%;
+  resize: none;
+  overflow: hidden;
+  caret-color: rgb(255, 255, 255);
+}
+
+.output {
+  margin-top: 10px;
+  white-space: pre-wrap;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  color: #665b5b;
+}
+
+
+.response-line {
+    margin-left: 20px;
+    margin-top: 5px;
+    white-space: pre-wrap; /* preserves line breaks from JS */
+}
+
+.help {
+    color: #779f6f; /* base color */
+    text-shadow: 0 0 5px #4c6946, 0 0 10px #4c6946, 0 0 15px #4c6946;
+    animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 5px #4c6946, 0 0 10px #4c6946, 0 0 15px #4c6946;
+    }
+    40% {
+        text-shadow: 0 0 10px #7fff7f, 0 0 20px #7fff7f, 0 0 30px #7fff7f;
+    }
+}

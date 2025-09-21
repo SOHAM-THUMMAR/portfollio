@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux Terminal</title>
+  <link rel="stylesheet" href="cli_styles.css">
+</head>
+<body>
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div class="button red"></div>
+      <div class="button yellow"></div>
+      <div class="button green"></div>
+    </div>
+
+    <div class="ascii-art">
+      <pre>
+<p style="color: #c4b99c;">Welcome to My Terminal</p>
+
+            _                         ______ _                                              
+   ()      | |                       (_) |  | |                                             
+   /\  __  | |     __,   _  _  _         |  | |            _  _  _    _  _  _    __,   ,_   
+  /  \/  \_|/ \   /  |  / |/ |/ |      _ |  |/ \   |   |  / |/ |/ |  / |/ |/ |  /  |  /  |  
+ /(__/\__/ |   |_/\_/|_/  |  |  |_/   (_/   |   |_/ \_/|_/  |  |  |_/  |  |  |_/\_/|_/   |_/
+    </pre>
+      <div style="color: #bfcdbc;">Type <span class="help">'help'</span> to view available commands</div>
+      <div class="output"></div>
+    </div>
+    <div class="terminal-body" id="terminalBody">
+      <div class="command-line">
+        <span>user@project.com:~$ </span>
+        <textarea id="userInput" rows="1" autocomplete="off" autofocus></textarea>
+      </div>
+    </div>
+  </div>
+
+  <script src="cli_script.js"></script>
+</body>
+</html>
