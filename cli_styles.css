@@ -6,16 +6,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* use min-height for better mobile support */
-  padding: 10px; /* small padding for mobile */
+  min-height: 100vh;
+  padding: 10px;
   box-sizing: border-box;
 }
 
 .terminal-window {
   width: 100%;
-  max-width: 900px; /* limits width on large screens */
-  min-width: 280px; /* ensures usability on tiny screens */
-  height: 80vh; /* scales with screen height */
+  max-width: 900px;
+  min-width: 280px;
+  height: 80vh;
   background-color: #1e1e1e;
   border-radius: 8px;
   overflow: hidden;
@@ -29,7 +29,7 @@ body {
   padding: 8px;
   display: flex;
   gap: 5px;
-  flex-wrap: wrap; /* wraps header buttons if needed */
+  flex-wrap: wrap;
 }
 
 .button {
@@ -46,19 +46,20 @@ body {
   background-color: #1e1e1e;
   font-family: 'Courier New', Courier, monospace;
   white-space: pre;
-  overflow-x: auto; /* allows horizontal scrolling on small screens */
+  overflow-x: auto;
 }
 
 .ascii-art pre {
-    color: rgb(203, 189, 162);
-    font-size: 14px; /* slightly smaller for mobile */
-    margin: 0; 
+  color: rgb(203, 189, 162);
+  font-size: 14px;
+  margin: 0;
 }
 
 .terminal-body {
   padding: 16px;
   flex: 1;
   overflow-y: auto;
+  scroll-behavior: smooth; /* smooth scroll to bottom */
 }
 
 .command-line {
@@ -70,59 +71,63 @@ body {
 .command-line span {
   color: #738b6f;
   margin-right: 5px;
+  flex-shrink: 0;
+  min-width: 130px; /* keeps prompt aligned */
 }
 
 #userInput {
   background: transparent;
   border: none;
   outline: none;
-  color: rgb(255, 255, 255);
+  color: #fff;
   font-family: monospace;
-  font-size: 14px; /* smaller for mobile */
+  font-size: 14px;
   width: 100%;
   resize: none;
   overflow: hidden;
-  caret-color: rgb(255, 255, 255);
+  caret-color: #fff;
+  line-height: 1.4;
+  flex: 1;
 }
 
 .output {
   margin-top: 10px;
   white-space: pre-wrap;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 14px; /* smaller for mobile */
+  font-size: 14px;
   color: #665b5b;
 }
 
 .response-line {
-    margin-left: 20px;
-    margin-top: 5px;
-    white-space: pre-wrap;
+  margin-left: 20px;
+  margin-top: 5px;
+  white-space: pre-wrap;
 }
 
 .help {
-    color: #779f6f;
-    text-shadow: 0 0 5px #4c6946, 0 0 10px #4c6946, 0 0 15px #4c6946;
-    animation: glow 3s infinite alternate;
+  color: #779f6f;
+  text-shadow: 0 0 5px #4c6946, 0 0 10px #4c6946, 0 0 15px #4c6946;
+  animation: glow 3s infinite alternate;
 }
 
 @keyframes glow {
-    0% {
-        text-shadow: 0 0 5px #4c6946, 0 0 10px #4c6946, 0 0 15px #4c6946;
-    }
-    40% {
-        text-shadow: 0 0 10px #7fff7f, 0 0 20px #7fff7f, 0 0 30px #7fff7f;
-    }
+  0% {
+    text-shadow: 0 0 5px #4c6946, 0 0 10px #4c6946, 0 0 15px #4c6946;
+  }
+  40% {
+    text-shadow: 0 0 10px #7fff7f, 0 0 20px #7fff7f, 0 0 30px #7fff7f;
+  }
 }
 
-/* Additional media queries for very small devices */
+/* Mobile tweaks */
 @media (max-width: 480px) {
-    .terminal-body {
-        padding: 10px;
-    }
-    .ascii-art pre, #userInput, .output {
-        font-size: 12px; /* shrink font for small screens */
-    }
-    .terminal-window {
-        height: 90vh; /* slightly taller for mobile screens */
-    }
+  .terminal-body {
+    padding: 10px;
+  }
+  .ascii-art pre, #userInput, .output {
+    font-size: 12px;
+  }
+  .terminal-window {
+    height: 90vh;
+  }
 }

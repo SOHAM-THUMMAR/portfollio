@@ -1,53 +1,65 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const terminalBody = document.getElementById('terminalBody');
-  const output = document.querySelector('.output');
+$(document).ready(function () {
+  const $terminalBody = $('#terminalBody');
 
-  function focusUserInput() {
-    const inputs = terminalBody.querySelectorAll('#userInput');
-    const lastInput = inputs[inputs.length - 1];
-    if (lastInput) lastInput.focus();
+  function scrollToBottom() {
+    $terminalBody.scrollTop($terminalBody.prop("scrollHeight"));
   }
 
-  function bindInput(userInput) {
+  function focusUserInput() {
+    const $inputs = $terminalBody.find('#userInput');
+    const $lastInput = $inputs.last();
+    if ($lastInput.length) $lastInput.focus();
+  }
+
+  function bindInput($userInput) {
     // Auto-grow textarea
-    userInput.addEventListener('input', function() {
+    $userInput.on('input', function () {
       this.style.height = 'auto';
       this.style.height = this.scrollHeight + 'px';
+      scrollToBottom();
     });
 
     // Handle Enter
-    userInput.addEventListener('keydown', function handler(event) {
+    $userInput.on('keydown', function (event) {
       if (event.key === 'Enter') {
         event.preventDefault();
-        const command = userInput.value.trim();
+        const command = $userInput.val().trim();
         const response = processCommand(command);
 
         // Turn current input into static command history
-        const parent = userInput.parentElement;
-        parent.innerHTML = `<span>user@project.com:~$ </span>${command}`;
+        const $parent = $userInput.parent();
+        $parent.html(`<span>user@project.com:~$ </span>${command}`);
 
-        // Append response immediately below
+        // Append response below
         if (response) {
-          const responseOutput = document.createElement('div');
-          responseOutput.classList.add('response-line');
-          parent.insertAdjacentElement('afterend', responseOutput);
-          animateTypeOut(responseOutput, response);
+          const $responseOutput = $('<div class="response-line"></div>');
+
+          if (isHTML(response)) {
+            // Render HTML directly
+            $responseOutput.html(response);
+            $parent.after($responseOutput);
+            scrollToBottom();
+          } else {
+            // Type out text character by character
+            $parent.after($responseOutput);
+            animateTypeOut($responseOutput, response, scrollToBottom);
+          }
         }
 
         // Add new prompt + input
-        const newLine = document.createElement('div');
-        newLine.classList.add('command-line');
-        newLine.innerHTML = `
-          <span>user@project.com:~$ </span>
-          <textarea id="userInput" rows="1" autocomplete="off"></textarea>
-        `;
-        terminalBody.appendChild(newLine);
+        const $newLine = $(`
+          <div class="command-line">
+            <span>user@project.com:~$ </span>
+            <textarea id="userInput" rows="1" autocomplete="off"></textarea>
+          </div>
+        `);
+        $terminalBody.append($newLine);
 
-        // Rebind listeners for new input
-        bindInput(newLine.querySelector('#userInput'));
+        // Rebind listeners
+        bindInput($newLine.find('#userInput'));
 
         // Scroll to bottom
-        terminalBody.scrollTop = terminalBody.scrollHeight;
+        scrollToBottom();
       }
     });
   }
@@ -56,22 +68,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const cmd = command.toLowerCase();
     switch (cmd) {
       case 'whois':
-        return 'Hellow! \nI am Soham Thummar, An Emedded Engineer and a Programmer.';
+        return 'Hello! \nI am Soham Thummar, an Embedded Engineer and Programmer.';
       case 'about':
-        return '      Hi, I’m Soham — passionate about creating smart systems where hardware meets software. ' +
-       'I’ve built projects using Arduino, ESP32, and Raspberry Pi, exploring areas like IoT, robotics, and automation. ' +
-       'I enjoy solving real-world problems with technology, whether it’s designing embedded circuits, coding in Python, or experimenting with AI/ML on edge devices. ' +
-       'My long-term vision is to become an expert in AI, Robotics, and IoT, and contribute to building future-ready technologies that make life easier and smarter.';
-
-       case 'help':
-        return 'Types of commands:\nwhois\nhelp\nabout\ncontact\nclear\necho\neducation';
+        return 'Hi, I’m Soham — passionate about creating smart systems where hardware meets software.\n' +
+          'I’ve built projects using Arduino, ESP32, and Raspberry Pi, exploring IoT, robotics, and automation.\n' +
+          'I enjoy solving real-world problems with technology, from coding in Python to experimenting with AI/ML on edge devices.\n' +
+          'My vision is to become an expert in AI, Robotics, and IoT, contributing to future-ready tech.';
+      case 'help':
+        return 'Available commands:\nwhois\nabout\nhelp\ncontact\nclear\necho\neducation\nprojects';
       case 'contact':
-        return 'You can reach me via email at "sohamthummar04@gmail.com".';
+        // Return HTML for clickable email
+        return '<a style="color: #bfcdbc;" href="mailto:sohamthummar04@gmail.com">sohamthummar04@gmail.com</a>';
       case 'education':
-        return 'B.Tech in Computer Engineering with 8.39 CGPA from RK University Rajkot, Gujarat, India.';
+        return 'B.Tech in Computer Engineering (CGPA 8.39) from RK University, Rajkot, Gujarat, India.';
       case 'clear':
         clearTerminal();
         return '';
+      case 'ls':
+        return 'Available commands:\nwhois\nabout\nhelp\ncontact\nclear\necho\neducation\nprojects';
+      case 'projects':
+        return '1. Python file organizer\n2. Void music';
       case '':
         return '';
       default:
@@ -83,39 +99,40 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function clearTerminal() {
-    terminalBody.innerHTML = `
+    $terminalBody.html(`
       <div class="command-line">
-        <span>user@project.com:~$ </span>
+        <span >user@project.com:~$ </span>
         <textarea id="userInput" rows="1" autocomplete="off"></textarea>
       </div>
-    `;
-    bindInput(terminalBody.querySelector('#userInput'));
+    `);
+    bindInput($terminalBody.find('#userInput'));
     focusUserInput();
+    scrollToBottom();
   }
 
-  function animateTypeOut(element, text) {
-    element.innerHTML = '';
+  function animateTypeOut($element, text, onEachChar) {
+    $element.html('');
     let i = 0;
+
     function type() {
       if (i < text.length) {
-        let currentChar = text.charAt(i);
-        if (currentChar === '<') {
-          const endTagIndex = text.indexOf('>', i);
-          if (endTagIndex !== -1) {
-            element.innerHTML += text.substring(i, endTagIndex + 1);
-            i = endTagIndex + 1;
-          }
-        } else {
-          element.innerHTML += currentChar;
-          i++;
-        }
+        $element.html($element.html() + text.charAt(i));
+        i++;
+        if (onEachChar) onEachChar(); // auto-scroll while typing
         setTimeout(type, 30);
       }
     }
     type();
   }
 
-  // Bind first input
-  bindInput(document.getElementById('userInput'));
+  // Helper to detect if string is HTML
+  function isHTML(str) {
+    return /<[a-z][\s\S]*>/i.test(str);
+  }
+
+  // Init
+  bindInput($('#userInput'));
   focusUserInput();
+  scrollToBottom();
 });
+
